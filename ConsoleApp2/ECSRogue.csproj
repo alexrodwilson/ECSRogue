@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Health.cs" />
     <Compile Include="Components\Collidable.cs" />
     <Compile Include="Components\Renderable.cs" />
     <Compile Include="Components\Position.cs" />

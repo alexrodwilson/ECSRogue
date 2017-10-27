@@ -57,11 +57,11 @@ namespace ECSRogue
             _rootConsole.Update += OnRootConsoleUpdate;
             _rootConsole.Render += OnRootConsoleRender;
             Entity entity1 = new Entity(1, new List<Component>{ new Position(10, 10), new Renderable('@', Colors.Player),
-                new UnderControl(), new Collidable() });
-            Entity entity2 = new Entity(2, new List<Component> { new Position(0, 0), new Renderable('K', Colors.TextHeading), new Collidable() }) ;
+                new UnderControl(), new Collidable() , new Health(25)});
+            Entity entity2 = new Entity(2, new List<Component> { new Position(0, 0), new Renderable('K', Colors.TextHeading), new Collidable(), new Health(10) }) ;
             Entity entity3 = new Entity(3, new List<Component>{ new Position(15, 10), new Renderable('@', Colors.Player),
-                new UnderControl()});
-            Entity entity4 = new Entity(4, new List<Component> { new Position(0, 0), new Renderable('K', Colors.TextHeading), new Collidable() });
+                new UnderControl(), new Health(25)});
+            Entity entity4 = new Entity(4, new List<Component> { new Position(0, 0), new Renderable('K', Colors.TextHeading), new Collidable(), new Health(10)});
             List<Entity> testEntities = new List<Entity> {entity2, entity4, entity1};
             GameMap map = MapGenerators.BasicRooms(_mapWidth, _mapHeight, 20, 13, 7, Random);
             _context = new Pool(map, testEntities);
