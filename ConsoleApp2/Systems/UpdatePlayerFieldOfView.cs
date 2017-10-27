@@ -11,7 +11,7 @@ namespace ConsoleApp2.Systems
 {
     internal static class UpdatePlayerFov
     {
-        private static readonly int light_radius = 10;
+        private static readonly int light_radius = 40;
         internal static void Act(IContext context)
         {
             List<Entity> controlledEntities = (List<Entity>)context.With("UnderControl");

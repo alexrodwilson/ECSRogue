@@ -59,8 +59,8 @@ namespace ECSRogue
             Entity entity1 = new Entity(1, new List<Component>{ new Position(10, 10), new Renderable('@', Colors.Player),
                 new UnderControl(), new Collidable() });
             Entity entity2 = new Entity(2, new List<Component> { new Position(0, 0), new Renderable('K', Colors.TextHeading), new Collidable() }) ;
-            //Entity entity3 = new Entity(3, new List<Component>{ new Position(15, 10), new Renderable('@', Colors.Player),
-               // new UnderControl()});
+            Entity entity3 = new Entity(3, new List<Component>{ new Position(15, 10), new Renderable('@', Colors.Player),
+                new UnderControl()});
             Entity entity4 = new Entity(4, new List<Component> { new Position(0, 0), new Renderable('K', Colors.TextHeading), new Collidable() });
             List<Entity> testEntities = new List<Entity> {entity2, entity4, entity1};
             GameMap map = MapGenerators.BasicRooms(_mapWidth, _mapHeight, 20, 13, 7, Random);
@@ -80,19 +80,10 @@ namespace ECSRogue
         {
             int x = context.GetCurrentMap().Rooms[0].Center.X;
             int y = context.GetCurrentMap().Rooms[0].Center.Y;
-            PlaceEntity(e, x, y, context);
+            MapUtils.PlaceEntity(e, new RogueSharp.Point(x, y), context.GetCurrentMap());
         }
 
-        internal static void PlaceEntity(Entity e, int x, int y, IContext context)
-        {
-            Position pos = (Position)e.GetComponent("Position");
-            pos.x = x;
-            pos.y = y;
-            // if (e.HasComponent("Collidable"))
-            // {
-            //   context.GetCurrentMap().SetIsWalkable(x, y, false);
-            //}
-        }
+
 
         private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e)
         {

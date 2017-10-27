@@ -1,8 +1,10 @@
 ﻿using ConsoleApp2.Components;
 using ConsoleApp2.Core;
 using RLNET;
+using RogueSharp;
 using System;
 using System.Collections.Generic;
+using ConsoleApp2.MapUtils;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,9 +39,10 @@ namespace ConsoleApp2.Systems
                     if (context.GetCurrentMap().GetCell(currentX, currentY).IsWalkable
                         || (!e.HasComponent("Collidable")))
                     {
+                        MapUtils.MapUtils.PlaceEntity(e, new Point(currentX, currentY), context.GetCurrentMap());
      
-                        c.x = currentX;
-                        c.y = currentY;
+                        //c.x = currentX;
+                        //c.y = currentY;
                         
                     }
                     

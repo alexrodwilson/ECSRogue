@@ -66,8 +66,9 @@
     <Compile Include="Core\Pool.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Map Generators\BasicMapGenerators.cs" />
-    <Compile Include="MapUtils\IEntityPlacer.cs" />
-    <Compile Include="MapUtils\TestPlacer.cs" />
+    <Compile Include="EntityPlacement\IEntityPlacer.cs" />
+    <Compile Include="EntityPlacement\MapUtils.cs" />
+    <Compile Include="EntityPlacement\TestPlacer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\CountSte%3bps.cs" />
     <Compile Include="Systems\UpdatePlayerFieldOfView.cs" />

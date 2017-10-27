@@ -17,16 +17,11 @@ namespace ConsoleApp2.MapUtils
             foreach(Entity e in entities)
             {
                 Point p = getRandomWalkableLocation(map, random);
-                changePosition(e, p);
+                MapUtils.PlaceEntity(e, p, map);
             }
         }
 
-        private static void changePosition(Entity e, Point p)
-        {
-            Position pos = (Position)e.GetComponent("Position");
-            pos.x = p.X;
-            pos.y = p.Y;
-        }
+
 
         private static Point getRandomWalkableLocation(GameMap map, IRandom random)
         {

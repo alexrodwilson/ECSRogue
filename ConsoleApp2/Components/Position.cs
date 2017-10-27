@@ -10,14 +10,18 @@ namespace ConsoleApp2.Components
 
     class Position : Component
     {
+        
         internal Position(int _x, int _y)
         {
             x = _x;
             y = _y;
+            NewlyCreated = true;
         }
         public int x
         { get; set; }
         public int y
+        { get; set; }
+        internal bool NewlyCreated
         { get; set; }
     }
     
