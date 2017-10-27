@@ -63,7 +63,7 @@ namespace ECSRogue
                 new UnderControl(), new Health(25)});
             Entity entity4 = new Entity(4, new List<Component> { new Position(0, 0), new Renderable('K', Colors.TextHeading), new Collidable(), new Health(10)});
             List<Entity> testEntities = new List<Entity> {entity2, entity4, entity1};
-            GameMap map = MapGenerators.BasicRooms(_mapWidth, _mapHeight, 20, 13, 7, Random);
+            GameMap map = MapGenerators.BasicRooms(_mapWidth * 2, _mapHeight * 2, 40, 13, 7, Random);
             _context = new Pool(map, testEntities);
             TestPlacer testPlacer = new TestPlacer();
             testPlacer.Place(testEntities, Random, map);
