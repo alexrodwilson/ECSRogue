@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\FollowedByCamera.cs" />
     <Compile Include="Components\Health.cs" />
     <Compile Include="Components\Collidable.cs" />
     <Compile Include="Components\Renderable.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Core\IContext.cs" />
     <Compile Include="Core\Entity.cs" />
     <Compile Include="Core\Pool.cs" />
+    <Compile Include="Core\View.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Map Generators\BasicMapGenerators.cs" />
     <Compile Include="EntityPlacement\IEntityPlacer.cs" />
@@ -76,8 +78,9 @@
     <Compile Include="Systems\GenerateMap.cs" />
     <Compile Include="Systems\GetInput.cs" />
     <Compile Include="Systems\MovePlayer.cs" />
-    <Compile Include="Systems\RenderEntities.cs" />
-    <Compile Include="Systems\RenderMap.cs" />
+    <Compile Include="Systems\RenderViewEntities.cs" />
+    <Compile Include="Systems\RenderViewMap.cs" />
+    <Compile Include="Systems\UpdateView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

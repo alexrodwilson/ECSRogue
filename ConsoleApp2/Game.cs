@@ -37,6 +37,7 @@ namespace ECSRogue
         public static MessageLog MessageLog { get; private set; }
         // Temporary member variable just to show our MessageLog is working
         private static int _steps = 0;
+        private static View _view;
 
         static void Main(string[] args)
         {
@@ -57,7 +58,7 @@ namespace ECSRogue
             _rootConsole.Update += OnRootConsoleUpdate;
             _rootConsole.Render += OnRootConsoleRender;
             Entity entity1 = new Entity(1, new List<Component>{ new Position(10, 10), new Renderable('@', Colors.Player),
-                new UnderControl(), new Collidable() , new Health(25)});
+                new UnderControl(), new Collidable() , new Health(25), new FollowedByCamera()});
             Entity entity2 = new Entity(2, new List<Component> { new Position(0, 0), new Renderable('K', Colors.TextHeading), new Collidable(), new Health(10) }) ;
             Entity entity3 = new Entity(3, new List<Component>{ new Position(15, 10), new Renderable('@', Colors.Player),
                 new UnderControl(), new Health(25)});
@@ -65,6 +66,7 @@ namespace ECSRogue
             List<Entity> testEntities = new List<Entity> {entity2, entity4, entity1};
             GameMap map = MapGenerators.BasicRooms(_mapWidth * 2, _mapHeight * 2, 40, 13, 7, Random);
             _context = new Pool(map, testEntities);
+            _view = new View(_mapWidth, _mapHeight);
             TestPlacer testPlacer = new TestPlacer();
             testPlacer.Place(testEntities, Random, map);
             MessageLog = new MessageLog();
@@ -96,7 +98,8 @@ namespace ECSRogue
 
                 _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, RLColor.Cyan);
                 _inventoryConsole.Print(1, 1, "Inventory", RLColor.White);
-
+   
+            
             if (MovePlayer.Act(_rootConsole.Keyboard, _context))
             {
                 CountSteps.Increment();
@@ -115,8 +118,9 @@ namespace ECSRogue
               _rootConsole, 0, _screenHeight - _messageHeight);
             RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight,
               _rootConsole, 0, 0);
-            RenderMap.Act(_mapConsole, _context);
-            RenderEntities.Act(_mapConsole, _context);
+            UpdateView.Act(_view, _context);
+            RenderViewMap.Act(_mapConsole, _view, _context);
+            RenderViewEntities.Act(_mapConsole, _view, _context);
             MessageLog.Draw(_messageConsole);
             _rootConsole.Draw();
         }

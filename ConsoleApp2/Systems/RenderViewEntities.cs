@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp2.Systems
 {
-    internal static class RenderEntities
+    internal static class RenderViewEntities
     {
-        internal static void Act(RLConsole console, IContext context)
+        internal static void Act(RLConsole console, View view, IContext context)
         {
             GameMap map = context.GetCurrentMap();
             
@@ -21,6 +21,8 @@ namespace ConsoleApp2.Systems
                 Position pos = (Position)e.GetComponent("Position");
                 int x = pos.x;
                 int y = pos.y;
+                int adjustedX = x - (view.playerX - view.xOffset);
+                int adjustedY = y - (view.playerY - view.yOffset);
                 RLColor color = renderable.color;
                 char symbol = renderable.symbol;
 
@@ -31,12 +33,12 @@ namespace ConsoleApp2.Systems
                 // Only draw the actor with the color and symbol when they are in field-of-view
                 if (map.IsInFov(x, y))
                 {
-                    console.Set(x, y, color, Colors.FloorBackgroundFov, symbol);
+                    console.Set(adjustedX, adjustedY, color, Colors.FloorBackgroundFov, symbol);
                 }
                 else
                 {
                     // When not in field-of-view just draw a normal floor
-                    console.Set(x, y, Colors.Floor, Colors.FloorBackground, '.');
+                    console.Set(adjustedX, adjustedY, Colors.Floor, Colors.FloorBackground, '.');
                 }
             }
         }
