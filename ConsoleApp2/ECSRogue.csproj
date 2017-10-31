@@ -31,7 +31,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ECSRogue.Game</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.1.1.1589.5942\lib\NET40\OpenTK.dll</HintPath>
     </Reference>
@@ -51,11 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\BaseStats.cs" />
     <Compile Include="Components\FollowedByCamera.cs" />
     <Compile Include="Components\Health.cs" />
     <Compile Include="Components\Collidable.cs" />
     <Compile Include="Components\Renderable.cs" />
     <Compile Include="Components\Position.cs" />
+    <Compile Include="Components\Schedulable.cs" />
     <Compile Include="Components\UnderControl.cs" />
     <Compile Include="Components\GameMap.cs" />
     <Compile Include="Core\Colors.cs" />
@@ -74,6 +80,8 @@
     <Compile Include="EntityPlacement\TestPlacer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\CountSte%3bps.cs" />
+    <Compile Include="Systems\PerformAction.cs" />
+    <Compile Include="Systems\PlayTurn.cs" />
     <Compile Include="Systems\UpdatePlayerFieldOfView.cs" />
     <Compile Include="Systems\GenerateMap.cs" />
     <Compile Include="Systems\GetInput.cs" />
@@ -81,6 +89,8 @@
     <Compile Include="Systems\RenderViewEntities.cs" />
     <Compile Include="Systems\RenderViewMap.cs" />
     <Compile Include="Systems\UpdateView.cs" />
+    <Compile Include="Utilities\SortedQueue.cs" />
+    <Compile Include="Utilities\Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -92,6 +102,8 @@
     </Content>
     <Content Include="YayoC648x8.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

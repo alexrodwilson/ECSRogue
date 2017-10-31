@@ -36,7 +36,7 @@ namespace ECSRogue
         public static IRandom Random { get; private set; }
         public static MessageLog MessageLog { get; private set; }
         // Temporary member variable just to show our MessageLog is working
-        private static int _steps = 0;
+        //private static int _steps = 0;
         private static View _view;
 
         static void Main(string[] args)

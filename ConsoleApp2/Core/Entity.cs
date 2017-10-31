@@ -35,6 +35,19 @@ namespace ConsoleApp2.Core
             return _components.Exists(c => c.Name.Equals(componentName));
         }
 
+        public override String ToString()
+        {
+            StringBuilder sb = new StringBuilder("Entity: ");
+            sb.AppendFormat("id: {0}", this.id);
+            return sb.ToString();
+
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this.id == ((Entity)obj).id;
+        }
+
 
     }
 
