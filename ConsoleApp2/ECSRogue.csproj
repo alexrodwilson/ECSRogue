@@ -63,7 +63,7 @@
     <Compile Include="Components\Position.cs" />
     <Compile Include="Components\Schedulable.cs" />
     <Compile Include="Components\UnderControl.cs" />
-    <Compile Include="Components\GameMap.cs" />
+    <Compile Include="Core\GameMap.cs" />
     <Compile Include="Core\Colors.cs" />
     <Compile Include="Core\MessageLog.cs" />
     <Compile Include="Core\Palette.cs" />
