@@ -25,6 +25,8 @@ namespace ConsoleApp2.Systems
                     Position c = (Position)e.GetComponent("Position");
                     int currentX = c.x;
                     int currentY = c.y;
+                    GameMap map = context.GetCurrentMap();
+  
                     switch (kp.Key)
                     {
                         case RLKey.Keypad8: currentY -= 1; break;
@@ -36,14 +38,10 @@ namespace ConsoleApp2.Systems
                         case RLKey.Keypad1: currentY += 1; currentX -= 1; break;
                         case RLKey.Keypad3: currentY += 1; currentX += 1; break;
                     }
-                    if (context.GetCurrentMap().GetCell(currentX, currentY).IsWalkable
+                    if (map.GetCell(currentX, currentY).IsWalkable
                         || (!e.HasComponent("Collidable")))
                     {
-                        MapUtils.MapUtils.PlaceEntity(e, new Point(currentX, currentY), context.GetCurrentMap());
-     
-                        //c.x = currentX;
-                        //c.y = currentY;
-                        
+                        map.PlaceEntity(e, map.GetCell(currentX, currentY));
                     }
                     
                 }

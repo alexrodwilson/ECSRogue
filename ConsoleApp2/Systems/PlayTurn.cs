@@ -1,6 +1,7 @@
 ﻿using ConsoleApp2.Components;
 using ConsoleApp2.Core;
 using ConsoleApp2.Utilities;
+using RLNET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp2.Systems
 {
-    internal class PlayTurn
+    internal static class PlayTurn
     {
         //tiebreaker is dexterity
         private class TimeUnitsThenDexComparer : IComparer<Entity>
@@ -32,7 +33,7 @@ namespace ConsoleApp2.Systems
         }
 
 
-        internal void Act(IContext context)
+        internal static void Act(RLKeyboard keyboard, IContext context)
         {
             SortedQueue<Entity> schedulables = new SortedQueue<Entity>(context.With("Schedulable"), new TimeUnitsThenDexComparer());
             while(schedulables.Exists(
@@ -41,7 +42,7 @@ namespace ConsoleApp2.Systems
                 ))
             {
                 Entity EntityWithMostTime = schedulables.Dequeue();
-                PerformAction.Act(EntityWithMostTime, context);
+                PerformAction.Act(EntityWithMostTime, keyboard, context);
                 schedulables.Enqueue(EntityWithMostTime);
             }
 

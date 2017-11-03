@@ -16,14 +16,14 @@ namespace ConsoleApp2.MapUtils
         {
             foreach(Entity e in entities)
             {
-                Point p = getRandomWalkableLocation(map, random);
-                MapUtils.PlaceEntity(e, p, map);
+                Cell randomCell = getRandomWalkableLocation(map, random);
+                map.PlaceEntity(e, randomCell);
             }
         }
 
 
 
-        private static Point getRandomWalkableLocation(GameMap map, IRandom random)
+        private static Cell getRandomWalkableLocation(GameMap map, IRandom random)
         {
 
             IEnumerable<Cell> shuffledCells = Shuffle<Cell>(map.GetAllCells().ToList(), random);
@@ -31,7 +31,7 @@ namespace ConsoleApp2.MapUtils
             {
                 if (cell.IsWalkable)
                 {
-                    return new Point(cell.X, cell.Y);
+                    return cell;
                 }
             }
             throw new ArgumentException("The gameMap has no walkable cells");

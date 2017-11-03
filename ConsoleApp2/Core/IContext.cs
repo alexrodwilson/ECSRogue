@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp2.Core
 {
-    internal interface IContext
+    public interface IContext
     {
         IEnumerable<Entity> With(string componentName);
         IEnumerable<Entity> Without(string componentName);

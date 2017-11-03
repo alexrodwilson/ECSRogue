@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,20 @@ namespace ConsoleApp2.Core
                 return maybeComponent;
             }
         }
+        //public Component GetComponent1<ComponentType>(String componentName)
+        //{
+        //    Component maybeComponent = _components.Find(c => c.Name.Equals(componentName));
+        //    Assembly assem = typeof(Entity).Assembly;
+        //    Type returnType = assem.GetType(componentName);
+        //    if (maybeComponent == null)
+        //    {
+        //        throw new ArgumentException("The entity does not contain the component", componentName);
+        //    }
+        //    else
+        //    {
+        //        return (returnType.GetType())maybeComponent;
+        //    }
+        //}
 
         public bool HasComponent(string componentName)
         {
@@ -47,6 +62,11 @@ namespace ConsoleApp2.Core
         {
             return this.id == ((Entity)obj).id;
         }
+        public override int GetHashCode()
+        {
+            return this.id.GetHashCode();
+        }
+
 
 
     }

@@ -58,7 +58,7 @@ namespace ECSRogue
             _rootConsole.Update += OnRootConsoleUpdate;
             _rootConsole.Render += OnRootConsoleRender;
             Entity entity1 = new Entity(1, new List<Component>{ new Position(10, 10), new Renderable('@', Colors.Player),
-                new UnderControl(), new Collidable() , new Health(25), new FollowedByCamera()});
+                new UnderControl(), new Collidable() , new Health(25), new FollowedByCamera(), new Schedulable(), new BaseStats(15, 15, 100)});
             Entity entity2 = new Entity(2, new List<Component> { new Position(0, 0), new Renderable('K', Colors.TextHeading), new Collidable(), new Health(10) }) ;
             Entity entity3 = new Entity(3, new List<Component>{ new Position(15, 10), new Renderable('@', Colors.Player),
                 new UnderControl(), new Health(25)});
@@ -82,7 +82,7 @@ namespace ECSRogue
         {
             int x = context.GetCurrentMap().Rooms[0].Center.X;
             int y = context.GetCurrentMap().Rooms[0].Center.Y;
-            MapUtils.PlaceEntity(e, new RogueSharp.Point(x, y), context.GetCurrentMap());
+            context.GetCurrentMap().PlaceEntity(e, context.GetCurrentMap().GetCell(x,y));
         }
 
 
@@ -98,13 +98,15 @@ namespace ECSRogue
 
                 _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, RLColor.Cyan);
                 _inventoryConsole.Print(1, 1, "Inventory", RLColor.White);
-   
-            
-            if (MovePlayer.Act(_rootConsole.Keyboard, _context))
-            {
-                CountSteps.Increment();
-                MessageLog.Add($"Step # {CountSteps.Get()}");
-            }
+
+
+            //if (MovePlayer.Act(_rootConsole.Keyboard, _context))
+            //{
+            //    CountSteps.Increment();
+            //    MessageLog.Add($"Step # {CountSteps.Get()}");
+            //}
+            //MovePlayer.Act(_rootConsole.Keyboard, _context);
+            PlayTurn.Act(_rootConsole.Keyboard, _context);
             UpdatePlayerFov.Act(_context);
 
         }

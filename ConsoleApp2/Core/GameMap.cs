@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp2.Components
 {
-    internal class GameMap : Component
+    public class GameMap : Component
     {
         private Map _map;
         internal 
@@ -82,6 +82,35 @@ namespace ConsoleApp2.Components
         internal void SetCellProperties(int x, int y, bool isTransparent, bool isWalkable)
         {
             _map.SetCellProperties(x, y, isTransparent, isWalkable);
+        }
+        public PathFinder CreatePathFinder()
+        {
+            return new PathFinder(_map);
+        }
+        public void PlaceEntity(Entity e, Cell newCell)
+        {
+            Position pos = (Position)e.GetComponent("Position");
+            Cell formerCell = GetCell(pos.x, pos.y);
+            pos.x = newCell.X;
+            pos.y = newCell.Y;
+            if (pos.NewlyCreated)
+            {
+                pos.NewlyCreated = false;
+
+            }
+            else
+            {
+                if (formerCell.IsTransparent)
+                {
+                    SetIsWalkable(formerCell.X, formerCell.Y, true);
+                }
+            }
+
+            if (e.HasComponent("Collidable"))
+            {
+                SetIsWalkable(pos.x, pos.y, false);
+            }
+
         }
     }
 }

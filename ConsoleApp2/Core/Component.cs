@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp2.Core
 {
-     internal abstract class Component
+     public abstract class Component
     
     {
         public string Name

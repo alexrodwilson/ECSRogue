@@ -13,10 +13,13 @@ namespace ConsoleApp2.Components
         { get; set; }
         internal int Dexterity
         { get; set; }
-        internal BaseStats(int strength, int dexterity)
+        internal int MovementCost
+        { get; set; }
+        internal BaseStats(int strength, int dexterity, int movementCost)
         {
             Strength = strength;
             Dexterity = dexterity;
+            MovementCost = movementCost;
         }
 
         

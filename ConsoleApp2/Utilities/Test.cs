@@ -38,13 +38,13 @@ namespace ConsoleApp2.Utilities
         {
             Entity player = new Entity(1, new List<Component>{ new Position(10, 10), new Renderable('@', Colors.Player),
                 new UnderControl(), new Collidable() , new Health(25), new FollowedByCamera(),
-                new Schedulable(), new BaseStats(15, 15)});
+                new Schedulable(), new BaseStats(15, 15, 100)});
             Entity goblin = new Entity(2, new List<Component> { new Position(0, 0),
                 new Renderable('g', Colors.TextHeading), new Collidable(), new Health(10),
-                new Schedulable(), new BaseStats(8, 20) });
+                new Schedulable(), new BaseStats(8, 20, 80) });
             Entity ogre = new Entity(3, new List<Component> { new Position(0, 0),
                 new Renderable('O', Colors.TextHeading), new Collidable(), new Health(10),
-                new Schedulable(), new BaseStats(25, 8) });
+                new Schedulable(), new BaseStats(25, 8, 150) });
             SortedQueue<Entity> entities = new SortedQueue<Entity>(new List<Entity> { player, goblin, ogre }, new TimeUnitsThenDexComparer());
             Console.WriteLine(entities);
             
