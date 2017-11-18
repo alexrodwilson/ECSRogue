@@ -1,7 +1,6 @@
 ﻿using ConsoleApp2.Behaviours;
 using ConsoleApp2.Components;
 using ConsoleApp2.Core;
-using RLNET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +11,11 @@ namespace ConsoleApp2.Systems
 {
     internal class PerformAction
     {
-        internal static void Act(Entity entity, RLKeyboard keyboard, IContext context)
+        internal static void Act(Entity entity, IContext context)
         {
             if (entity.HasComponent("UnderControl"))
             {
-                bool working = MovePlayer.Act(keyboard, context);
+                bool working = MovePlayer.Act(context);
                 int movementCost = ((BaseStats)entity.GetComponent("BaseStats")).MovementCost;
                 SubtractTimeUnits(entity, movementCost);
             }

@@ -90,7 +90,6 @@
     <Compile Include="Systems\PlayTurn.cs" />
     <Compile Include="Systems\UpdatePlayerFieldOfView.cs" />
     <Compile Include="Systems\GenerateMap.cs" />
-    <Compile Include="Systems\GetInput.cs" />
     <Compile Include="Systems\MovePlayer.cs" />
     <Compile Include="Systems\RenderViewEntities.cs" />
     <Compile Include="Systems\RenderViewMap.cs" />

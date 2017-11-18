@@ -1,7 +1,6 @@
 ﻿using ConsoleApp2.Components;
 using ConsoleApp2.Core;
 using ConsoleApp2.Utilities;
-using RLNET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +32,7 @@ namespace ConsoleApp2.Systems
         }
 
 
-        internal static void Act(RLKeyboard keyboard, IContext context)
+        internal static void Act(IContext context)
         {
             SortedQueue<Entity> schedulables = new SortedQueue<Entity>(context.With("Schedulable"), new TimeUnitsThenDexComparer());
             while(schedulables.Exists(
@@ -42,7 +41,7 @@ namespace ConsoleApp2.Systems
                 ))
             {
                 Entity EntityWithMostTime = schedulables.Dequeue();
-                PerformAction.Act(EntityWithMostTime, keyboard, context);
+                PerformAction.Act(EntityWithMostTime, context);
                 schedulables.Enqueue(EntityWithMostTime);
             }
 

@@ -10,6 +10,7 @@ using ConsoleApp2.Components;
 using RogueSharp.Random;
 using ConsoleApp2.Map_Generators;
 using ConsoleApp2.MapUtils;
+using Microsoft.Xna.Framework;
 
 namespace ECSRogue
 {
@@ -93,11 +94,11 @@ namespace ECSRogue
                 //_mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, RLColor.Black);
                // _mapConsole.Print(1, 1, "Map", RLColor.White);
 
-                _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, RLColor.Brown);
-                _statConsole.Print(1, 1, "Stats", RLColor.White);
+                _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Color.Brown);
+                _statConsole.Print(1, 1, "Stats", Color.White);
 
-                _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, RLColor.Cyan);
-                _inventoryConsole.Print(1, 1, "Inventory", RLColor.White);
+                _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Color.Cyan);
+                _inventoryConsole.Print(1, 1, "Inventory", Color.White);
 
 
             //if (MovePlayer.Act(_rootConsole.Keyboard, _context))

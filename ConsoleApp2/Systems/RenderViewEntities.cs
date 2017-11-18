@@ -1,11 +1,11 @@
 ﻿using ConsoleApp2.Components;
 using ConsoleApp2.Core;
-using RLNET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace ConsoleApp2.Systems
 {
@@ -23,7 +23,7 @@ namespace ConsoleApp2.Systems
                 int y = pos.y;
                 int adjustedX = x - (view.playerX - view.xOffset);
                 int adjustedY = y - (view.playerY - view.yOffset);
-                RLColor color = renderable.color;
+                Color color = renderable.color;
                 char symbol = renderable.symbol;
 
                //if (! map.GetCell(x, y).IsExplored)

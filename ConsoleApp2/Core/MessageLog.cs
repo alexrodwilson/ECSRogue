@@ -1,4 +1,5 @@
-﻿using RLNET;
+﻿using Microsoft.Xna.Framework;
+using RLNET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace ConsoleApp2.Core
             string[] lines = _lines.ToArray();
             for (int i = 0; i < lines.Length; i++)
             {
-                console.Print(1, i + 1, lines[i], RLColor.White);
+                console.Print(1, i + 1, lines[i], Color.White);
             }
         }
     }
