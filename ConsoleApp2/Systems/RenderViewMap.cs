@@ -1,5 +1,4 @@
 ﻿using ConsoleApp2.Core;
-using RLNET;
 using RogueSharp;
 using System;
 using System.Collections.Generic;
@@ -11,18 +10,18 @@ namespace ConsoleApp2.Systems
 {
     internal static class RenderViewMap
     {
-        internal static void Act(RLConsole mapConsole, View view, IContext context)
+        internal static void Act(SadConsole.Console mapConsole, IContext context)
         {
             mapConsole.Clear();
-            foreach (Cell cell in view.visibleCells)
+            foreach (Cell cell in context.GetCurrentMap().GetAllCells())
             {
-                SetConsoleSymbolForCell(mapConsole, cell, view, context);
+                SetConsoleSymbolForCell(mapConsole, cell, context);
             }
         }
-        private static void SetConsoleSymbolForCell(RLConsole console, Cell cell, View view, IContext context)
+        private static void SetConsoleSymbolForCell(SadConsole.Console console, Cell cell, IContext context)
         {
-            int sceenX = cell.X - (view.playerX - view.xOffset);
-            int screenY = cell.Y - (view.playerY - view.yOffset);
+            //int screenX = cell.X - (view.playerX - view.xOffset);
+            //int screenY = cell.Y - (view.playerY - view.yOffset);
             // When we haven't explored a cell yet, we don't want to draw anything
             if (!cell.IsExplored)
             {
@@ -37,11 +36,13 @@ namespace ConsoleApp2.Systems
                 // '.' for floor and '#' for walls
                 if (cell.IsWalkable)
                 {
-                    console.Set(sceenX, screenY, Colors.FloorFov, Colors.FloorBackgroundFov, '.');
+                    //console.Set(sceenX, screenY, Colors.FloorFov, Colors.FloorBackgroundFov, '.');
+                    console.SetGlyph(cell.X, cell.Y, '.', Colors.FloorFov, Colors.FloorBackgroundFov);
                 }
                 else
                 {
-                    console.Set(sceenX, screenY, Colors.WallFov, Colors.WallBackgroundFov, '#');
+                    //console.Set(sceenX, screenY, Colors.WallFov, Colors.WallBackgroundFov, '#');
+                    console.SetGlyph(cell.X, cell.Y, '#', Colors.WallFov, Colors.FloorBackgroundFov);
                 }
             }
             // When a cell is outside of the field of view draw it with darker colors
@@ -49,11 +50,13 @@ namespace ConsoleApp2.Systems
             {
                 if (cell.IsWalkable)
                 {
-                    console.Set(sceenX, screenY, Colors.Floor, Colors.FloorBackground, '.');
+                    console.SetGlyph(cell.X, cell.Y, '.', Colors.Floor, Colors.FloorBackground);
+                    //console.Set(sceenX, screenY, Colors.Floor, Colors.FloorBackground, '.');
                 }
                 else
                 {
-                    console.Set(sceenX, screenY, Colors.Wall, Colors.WallBackground, '#');
+                    console.SetGlyph(cell.X, cell.Y, '#', Colors.Wall, Colors.WallBackground);
+                    //console.Set(sceenX, screenY, Colors.Wall, Colors.WallBackground, '#');
                 }
             }
         }

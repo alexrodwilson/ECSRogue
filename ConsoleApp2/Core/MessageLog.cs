@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using RLNET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +36,7 @@ namespace ConsoleApp2.Core
         }
 
         // Draw each line of the MessageLog queue to the console
-        public void Draw(RLConsole console)
+        public void Draw(SadConsole.Console console)
         {
             console.Clear();
             string[] lines = _lines.ToArray();

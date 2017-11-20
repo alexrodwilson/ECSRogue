@@ -32,7 +32,7 @@ namespace ConsoleApp2.Systems
                 else if (SadConsole.Global.KeyboardState.IsKeyPressed(Keys.NumPad9)) { currentY -= 1; currentX += 1; }
                 else if (SadConsole.Global.KeyboardState.IsKeyPressed(Keys.NumPad4)) currentX -= 1;
                 else if (SadConsole.Global.KeyboardState.IsKeyPressed(Keys.NumPad6)) currentX += 1;
-                else if (SadConsole.Global.KeyboardState.IsKeyPressed(Keys.NumPad1)) { currentY += 1; currentX -= 1; }
+                else if (SadConsole.Global.KeyboardState.IsKeyPressed(Keys.NumPad1)) { System.Console.WriteLine("Input received"); currentY += 1; currentX -= 1; }
                 else if (SadConsole.Global.KeyboardState.IsKeyPressed(Keys.NumPad3)) { currentY += 1; currentX += 1; } 
                 
                 if (map.GetCell(currentX, currentY).IsWalkable
