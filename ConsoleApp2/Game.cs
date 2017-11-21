@@ -47,9 +47,7 @@ namespace ECSRogue
         public static MessageLog MessageLog { get; private set; }
         // Temporary member variable just to show our MessageLog is working
         //private static int _steps = 0;
-        private static View _view;
-        static int tempX;
-        static int tempY;
+
 
         static void Main(string[] args)
         {
@@ -62,7 +60,7 @@ namespace ECSRogue
             string consoleTitle = $"RougeSharp V3 Tutorial - Level 1 - Seed {seed}";
 
             // Setup the engine and creat the main window.
-            SadConsole.Game.Create("IBM.font", _screenWidth, _screenHeight);
+            SadConsole.Game.Create("IBM.font", _mapWidth, _mapHeight);
 
             // Hook the start event so we can add consoles to the system.
             SadConsole.Game.OnInitialize = Init;
@@ -96,12 +94,12 @@ namespace ECSRogue
         }
 
 
-        internal static void PlaceEntityInMiddleOfRoom(Entity e, IContext context)
-        {
-            int x = context.GetCurrentMap().Rooms[0].Center.X;
-            int y = context.GetCurrentMap().Rooms[0].Center.Y;
-            context.GetCurrentMap().PlaceEntity(e, context.GetCurrentMap().GetCell(x,y));
-        }
+        //internal static void PlaceEntityInMiddleOfRoom(Entity e, IContext context)
+        //{
+        //    int x = context.GetCurrentMap().Rooms[0].Center.X;
+        //    int y = context.GetCurrentMap().Rooms[0].Center.Y;
+        //    context.GetCurrentMap().PlaceEntity(e, context.GetCurrentMap().GetCell(x,y));
+        //}
 
         private static void Init()
         {
@@ -122,17 +120,18 @@ namespace ECSRogue
                 new UnderControl(), new Health(25)});
             Entity entity4 = new Entity(4, new List<Component> { new Position(0, 0), new Renderable('K', Colors.KoboldColor), new Collidable(), new Health(10) });
             List<Entity> testEntities = new List<Entity> {entity1 };
-            GameMap map = MapGenerators.BasicRooms( _mapWidth, _mapHeight, 40, 13, 7, Random);
+            GameMap map = MapGenerators.BasicRooms( _mapWidth * 2, _mapHeight * 2, 40, 13, 7, Random);
             _mapConsole.TextSurface = new SadConsole.Surfaces.BasicSurface(map.GetWidth(), map.GetHeight());
+            _mapConsole.TextSurface.RenderArea = new Rectangle(0, 0, _mapWidth, _mapHeight);
             
             _context = new Pool(map, testEntities);
             //_view = new View(_mapWidth, _mapHeight);
             TestPlacer testPlacer = new TestPlacer();
             testPlacer.Place(testEntities, Random, map);
 
-            UpdatePlayerFov.Act(_context);
-            UpdateView.Act(_mapConsole, _context);
-            RenderMap.Act(_mapConsole, _context);
+            UpdatePlayerFov.Execute(_context);
+            UpdateView.Execute(_mapConsole, _context);
+            RenderMap.Execute(_mapConsole, _context);
             RenderEntities.Act(_mapConsole, _context);
         }
 
@@ -158,12 +157,11 @@ namespace ECSRogue
             //if (SadConsole.Global.KeyboardState.KeysPressed.
             if ((currentPlayerCommand = HandleInput.Execute(_commands)) != null)
             {
-                
                 ResetTimeUnits.Execute(_context);
                 PlayTurn.Execute(currentPlayerCommand, _context);
-                UpdatePlayerFov.Act(_context);
-                UpdateView.Act(_mapConsole, _context);
-                RenderMap.Act(_mapConsole, _context);
+                UpdatePlayerFov.Execute(_context);
+                UpdateView.Execute(_mapConsole, _context);
+                RenderMap.Execute(_mapConsole, _context);
                 RenderEntities.Act(_mapConsole, _context);   
             }
 

@@ -11,7 +11,7 @@ namespace ConsoleApp2.Systems
 {
     internal static class UpdateView
     {
-        internal static void Act(SadConsole.Console mapConsole, IContext context)
+        internal static void Execute(SadConsole.Console mapConsole, IContext context)
         {
             if (mapConsole == null)
             {
@@ -26,7 +26,7 @@ namespace ConsoleApp2.Systems
             var playerPos = (Position)listOf1.First().GetComponent("Position");
             var oldRenderArea = mapConsole.TextSurface.RenderArea;
             mapConsole.TextSurface.RenderArea = new Microsoft.Xna.Framework.Rectangle
-            (oldRenderArea.X + 1, oldRenderArea.Y - 1, 
+            (playerPos.x - (mapConsole.TextSurface.RenderArea.Width / 2), playerPos.y - (mapConsole.TextSurface.RenderArea.Height / 2), 
             mapConsole.TextSurface.RenderArea.Width, mapConsole.TextSurface.RenderArea.Height);
             //var renderArea = mapConsole.TextSurface.RenderArea;
             //mapConsole.TextSurface.RenderArea = 

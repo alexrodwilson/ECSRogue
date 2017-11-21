@@ -10,7 +10,7 @@ namespace ConsoleApp2.Systems
 {
     internal static class RenderMap
     {
-        internal static void Act(SadConsole.Console mapConsole, IContext context)
+        internal static void Execute(SadConsole.Console mapConsole, IContext context)
         {
             mapConsole.Clear();
             foreach (Cell cell in context.GetCurrentMap().GetAllCells())
