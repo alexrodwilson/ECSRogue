@@ -122,7 +122,7 @@ namespace ECSRogue
                 new UnderControl(), new Health(25)});
             Entity entity4 = new Entity(4, new List<Component> { new Position(0, 0), new Renderable('K', Colors.KoboldColor), new Collidable(), new Health(10) });
             List<Entity> testEntities = new List<Entity> {entity1 };
-            GameMap map = MapGenerators.BasicRooms(2* _mapWidth, 2 *_mapHeight, 40, 13, 7, Random);
+            GameMap map = MapGenerators.BasicRooms( _mapWidth, _mapHeight, 40, 13, 7, Random);
             _mapConsole.TextSurface = new SadConsole.Surfaces.BasicSurface(map.GetWidth(), map.GetHeight());
             
             _context = new Pool(map, testEntities);
@@ -158,9 +158,10 @@ namespace ECSRogue
             //if (SadConsole.Global.KeyboardState.KeysPressed.
             if ((currentPlayerCommand = HandleInput.Execute(_commands)) != null)
             {
-                UpdatePlayerFov.Act(_context);
+                
                 ResetTimeUnits.Execute(_context);
                 PlayTurn.Execute(currentPlayerCommand, _context);
+                UpdatePlayerFov.Act(_context);
                 UpdateView.Act(_mapConsole, _context);
                 RenderMap.Act(_mapConsole, _context);
                 RenderEntities.Act(_mapConsole, _context);   
