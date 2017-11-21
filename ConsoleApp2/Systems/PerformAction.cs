@@ -11,12 +11,12 @@ namespace ConsoleApp2.Systems
 {
     internal class PerformAction
     {
-        internal static void Act(Entity entity, IContext context)
+        internal static void Execute(Entity entity, Command playerCommand, IContext context)
         {
             if (entity.HasComponent("UnderControl"))
             {
-                bool working = MovePlayer.Act(context);
                 int movementCost = ((BaseStats)entity.GetComponent("BaseStats")).MovementCost;
+                playerCommand.Execute(entity, context);
                 SubtractTimeUnits(entity, movementCost);
             }
             else

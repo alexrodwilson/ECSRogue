@@ -32,7 +32,7 @@ namespace ConsoleApp2.Systems
         }
 
 
-        internal static void Act(IContext context)
+        internal static void Execute(Command playerCommand, IContext context )
         {
             SortedQueue<Entity> schedulables = new SortedQueue<Entity>(context.With("Schedulable"), new TimeUnitsThenDexComparer());
             while(schedulables.Exists(
@@ -41,7 +41,7 @@ namespace ConsoleApp2.Systems
                 ))
             {
                 Entity EntityWithMostTime = schedulables.Dequeue();
-                PerformAction.Act(EntityWithMostTime, context);
+                PerformAction.Execute(EntityWithMostTime, playerCommand, context);
                 schedulables.Enqueue(EntityWithMostTime);
             }
 

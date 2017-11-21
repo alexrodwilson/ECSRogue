@@ -69,6 +69,7 @@
     <Compile Include="Components\Position.cs" />
     <Compile Include="Components\Schedulable.cs" />
     <Compile Include="Components\UnderControl.cs" />
+    <Compile Include="Core\Command.cs" />
     <Compile Include="Core\GameMap.cs" />
     <Compile Include="Core\Colors.cs" />
     <Compile Include="Core\MessageLog.cs" />
@@ -87,15 +88,17 @@
     <Compile Include="program-example.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\CountSte%3bps.cs" />
+    <Compile Include="Systems\HandleInput.cs" />
     <Compile Include="Systems\PerformAction.cs" />
     <Compile Include="Systems\PlayTurn.cs" />
     <Compile Include="Systems\ResetTimeUnits.cs" />
-    <Compile Include="Systems\UpdatePlayerFieldOfView.cs" />
+    <Compile Include="Systems\UpdatePlayerFOV.cs" />
     <Compile Include="Systems\GenerateMap.cs" />
     <Compile Include="Systems\MovePlayer.cs" />
-    <Compile Include="Systems\RenderViewEntities.cs" />
-    <Compile Include="Systems\RenderViewMap.cs" />
+    <Compile Include="Systems\RenderEntities.cs" />
+    <Compile Include="Systems\RenderMap.cs" />
     <Compile Include="Systems\UpdateView.cs" />
+    <Compile Include="Utilities\GeneralUtils.cs" />
     <Compile Include="Utilities\SortedQueue.cs" />
     <Compile Include="Utilities\Test.cs" />
   </ItemGroup>

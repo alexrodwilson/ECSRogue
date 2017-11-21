@@ -12,6 +12,8 @@ using ConsoleApp2.Map_Generators;
 using ConsoleApp2.MapUtils;
 using Microsoft.Xna.Framework;
 using Console = SadConsole.Console;
+using Microsoft.Xna.Framework.Input;
+using ConsoleApp2.Utilities;
 
 namespace ECSRogue
 {
@@ -27,6 +29,7 @@ namespace ECSRogue
         private static readonly int _statHeight = 70;
         private static readonly int _inventoryWidth = 80;
         private static readonly int _inventoryHeight = 11;
+        
 
         //private static RLRootConsole _rootConsole;
         //private static RLConsole _mapConsole;
@@ -35,6 +38,8 @@ namespace ECSRogue
         //private static RLConsole _inventoryConsole;
         private static Console _rootConsole;
         private static Console _mapConsole;
+        private static Command currentPlayerCommand;
+        private static IEnumerable<Command> _commands;
 
 
         private static IContext  _context;
@@ -100,13 +105,12 @@ namespace ECSRogue
 
         private static void Init()
         {
-            tempX = 10;
-            tempY = 10;
-               
+ 
             _mapConsole = new Console(_mapWidth, _mapHeight);
-            
+            _mapConsole.TextSurface = new SadConsole.Surfaces.BasicSurface(_mapWidth, _mapHeight);
+            _commands = GeneralUtils.ProvideBasicCommands();
 
-            //startingConsole.Print(_screenWidth / 2, _screenHeight / 2, "@", ColorAnsi.CyanBright);
+           
 
             // Set our new console as the "thing" to render and process
             SadConsole.Global.CurrentScreen = _mapConsole;
@@ -118,21 +122,22 @@ namespace ECSRogue
                 new UnderControl(), new Health(25)});
             Entity entity4 = new Entity(4, new List<Component> { new Position(0, 0), new Renderable('K', Colors.KoboldColor), new Collidable(), new Health(10) });
             List<Entity> testEntities = new List<Entity> {entity1 };
-            GameMap map = MapGenerators.BasicRooms(_mapWidth, _mapHeight, 40, 13, 7, Random);
+            GameMap map = MapGenerators.BasicRooms(2* _mapWidth, 2 *_mapHeight, 40, 13, 7, Random);
             _mapConsole.TextSurface = new SadConsole.Surfaces.BasicSurface(map.GetWidth(), map.GetHeight());
             
             _context = new Pool(map, testEntities);
             //_view = new View(_mapWidth, _mapHeight);
             TestPlacer testPlacer = new TestPlacer();
             testPlacer.Place(testEntities, Random, map);
+
+            UpdatePlayerFov.Act(_context);
+            UpdateView.Act(_mapConsole, _context);
+            RenderMap.Act(_mapConsole, _context);
+            RenderEntities.Act(_mapConsole, _context);
         }
 
         private static void Update(GameTime delta)
         {
-            if (SadConsole.Global.KeyboardState.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.B))
-            {
-                System.Console.WriteLine("B is pressed");
-            }
 
             //_mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, RLColor.Black);
             // _mapConsole.Print(1, 1, "Map", RLColor.White);
@@ -149,32 +154,40 @@ namespace ECSRogue
             //    CountSteps.Increment();
             //    MessageLog.Add($"Step # {CountSteps.Get()}");
             //}
-            //MovePlayer.Act(_rootConsole.Keyboard, _context);
-            ResetTimeUnits.Execute(_context);
-            UpdateView.Act(_mapConsole, _context);
-            RenderViewMap.Act(_mapConsole, _context);
-            RenderViewEntities.Act(_mapConsole, _context);
-            PlayTurn.Act( _context);
-            UpdatePlayerFov.Act(_context);
-            _mapConsole.Print(3, 3, "Working");
+            // MovePlayer.Act( _context);
+            //if (SadConsole.Global.KeyboardState.KeysPressed.
+            if ((currentPlayerCommand = HandleInput.Execute(_commands)) != null)
+            {
+                UpdatePlayerFov.Act(_context);
+                ResetTimeUnits.Execute(_context);
+                PlayTurn.Execute(currentPlayerCommand, _context);
+                UpdateView.Act(_mapConsole, _context);
+                RenderMap.Act(_mapConsole, _context);
+                RenderEntities.Act(_mapConsole, _context);   
+            }
+
+            
             //_mapConsole.SetGlyph(tempX, tempY, '$', Color.Azure);
 
 
         }
-  //      private static void OnRootConsoleRender(object sender, UpdateEventArgs e)
-     //   {
-   //         RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight,
-   //_rootConsole, 0, _inventoryHeight);
-   //         RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight,
-   //           _rootConsole, _mapWidth, 0);
-   //         RLConsole.Blit(_messageConsole, 0, 0, _messageWidth, _messageHeight,
-   //           _rootConsole, 0, _screenHeight - _messageHeight);
-   //         RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight,
-   //           _rootConsole, 0, 0);
+        //      private static void OnRootConsoleRender(object sender, UpdateEventArgs e)
+        //   {
+        //         RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight,
+        //_rootConsole, 0, _inventoryHeight);
+        //         RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight,
+        //           _rootConsole, _mapWidth, 0);
+        //         RLConsole.Blit(_messageConsole, 0, 0, _messageWidth, _messageHeight,
+        //           _rootConsole, 0, _screenHeight - _messageHeight);
+        //         RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight,
+        //           _rootConsole, 0, 0);
 
-            //MessageLog.Draw(_messageConsole);
-            //_rootConsole.Draw();
-   //     }
+        //MessageLog.Draw(_messageConsole);
+        //_rootConsole.Draw();
+        //     }
+
 
     }
+
+
 }

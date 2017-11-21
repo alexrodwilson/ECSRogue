@@ -9,13 +9,12 @@ using Microsoft.Xna.Framework;
 
 namespace ConsoleApp2.Systems
 {
-    internal static class RenderViewEntities
+    internal static class RenderEntities
     {
         internal static void Act(SadConsole.Console console,  IContext context)
         {
             GameMap map = context.GetCurrentMap();
-            
-            foreach(Entity e in context.With("Renderable"))
+            foreach (Entity e in context.With("Renderable"))
             {
                 Renderable renderable = (Renderable)e.GetComponent("Renderable");
                 Position pos = (Position)e.GetComponent("Position");

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp2.Systems
 {
-    internal static class RenderViewMap
+    internal static class RenderMap
     {
         internal static void Act(SadConsole.Console mapConsole, IContext context)
         {

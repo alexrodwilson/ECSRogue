@@ -23,9 +23,15 @@ namespace ConsoleApp2.Systems
             {
                 throw new InvalidOperationException("There must be 1 entity with a FollowedByCamera component");
             }
-            Position pos = (Position)listOf1.First().GetComponent("Position");
+            var playerPos = (Position)listOf1.First().GetComponent("Position");
+            var oldRenderArea = mapConsole.TextSurface.RenderArea;
             mapConsole.TextSurface.RenderArea = new Microsoft.Xna.Framework.Rectangle
-                (pos.x - mapConsole.Width / 2, pos.y - mapConsole.Height / 2, mapConsole.Width, mapConsole.Height);
+            (oldRenderArea.X + 1, oldRenderArea.Y - 1, 
+            mapConsole.TextSurface.RenderArea.Width, mapConsole.TextSurface.RenderArea.Height);
+            //var renderArea = mapConsole.TextSurface.RenderArea;
+            //mapConsole.TextSurface.RenderArea = 
+               // new Microsoft.Xna.Framework.Rectangle
+                //(renderArea.X + 1, renderArea.Y + 1, mapConsole.TextSurface.RenderArea.Width - 1, mapConsole.TextSurface.RenderArea.Height);
             //view.playerX = pos.x;
             //view.playerY = pos.y;
             //int leftMostX = pos.x - view.xOffset;
