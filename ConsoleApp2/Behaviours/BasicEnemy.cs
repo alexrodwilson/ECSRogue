@@ -17,11 +17,11 @@ namespace ConsoleApp2.Behaviours
         }
 
         State currentState;
-        public int Execute(Entity entity, IContext context)
+        public int Execute(Entity owner, IContext context)
         {
             Entity hostile = context.With("UnderControl").First();
             Position hostilePos = (Position)hostile.GetComponent("Position");
-            Position entityPos = (Position)entity.GetComponent("Position");
+            Position entityPos = (Position)owner.GetComponent("Position");
             int entityX = entityPos.x;
             int entityY = entityPos.y;
             GameMap map = context.GetCurrentMap();
@@ -70,8 +70,8 @@ namespace ConsoleApp2.Behaviours
                     {
                         // TODO: This should be path.StepForward() but there is a bug in RogueSharp V3
                         // The bug is that a Path returned from a PathFinder does not include the source Cell
-                        map.PlaceEntity(entity, path.StepForward());
-                        return ((BaseStats)entity.GetComponent("BaseStats")).MovementCost;
+                        map.PlaceEntity(owner, path.StepForward());
+                        return ((BaseStats)owner.GetComponent("BaseStats")).MovementCost;
                     }
                     catch (NoMoreStepsException)
                     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp2.Components
 {
-    internal class Sentient : Component
+    public class Sentient : Component
     {
         internal IBehaviour Behaviour { get; set; }
   

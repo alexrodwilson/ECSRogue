@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework;
 using Console = SadConsole.Console;
 using Microsoft.Xna.Framework.Input;
 using ConsoleApp2.Utilities;
+using ConsoleApp2.Behaviours;
 
 namespace ECSRogue
 {
@@ -71,35 +72,9 @@ namespace ECSRogue
             // Start the game.
             SadConsole.Game.Instance.Run();
 
-            //
-            // Code here will not run until the game window closes.
-            //
-
             SadConsole.Game.Instance.Dispose();
-
-            //_rootConsole = new RLRootConsole(fontFileName, _screenWidth, _screenHeight, 8, 8, 1f, consoleTitle);
-            //_mapConsole = new RLConsole(_mapWidth, _mapHeight);
-            //_messageConsole = new RLConsole(_messageWidth, _messageHeight);
-            //_statConsole = new RLConsole(_statWidth, _statHeight);
-            //_inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
-            //_rootConsole.Update += OnRootConsoleUpdate;
-            //_rootConsole.Render += OnRootConsoleRender;
-
-            //MessageLog = new MessageLog();
-            //MessageLog.Add("The rogue arrives on level 1");
-            //MessageLog.Add($"Level created with seed '{seed}'");
-            //PlaceEntityInMiddleOfRoom(entity1, _context);
-            //PlaceEntityInMiddleOfRoom(entity3, _context);
   
         }
-
-
-        //internal static void PlaceEntityInMiddleOfRoom(Entity e, IContext context)
-        //{
-        //    int x = context.GetCurrentMap().Rooms[0].Center.X;
-        //    int y = context.GetCurrentMap().Rooms[0].Center.Y;
-        //    context.GetCurrentMap().PlaceEntity(e, context.GetCurrentMap().GetCell(x,y));
-        //}
 
         private static void Init()
         {
@@ -115,12 +90,18 @@ namespace ECSRogue
             
             Entity entity1 = new Entity(1, new List<Component>{ new Position(10, 10), new Renderable('@', Colors.Player),
                 new UnderControl(), new Collidable() , new Health(25), new FollowedByCamera(), new Schedulable(), new BaseStats(15, 15, 100)});
-            Entity entity2 = new Entity(2, new List<Component> { new Position(0, 0), new Renderable('K', Colors.KoboldColor), new Collidable(), new Health(10) });
+            Entity entity2 = new Entity(2, new List<Component> { new Position(0, 0),
+                new Renderable('K', Colors.KoboldColor), new Collidable(),
+                new Health(10), new BaseStats(10, 10, 100),
+                new Sentient(new BeingConfused()), new Schedulable() });
             Entity entity3 = new Entity(3, new List<Component>{ new Position(15, 10), new Renderable('@', Colors.Player),
                 new UnderControl(), new Health(25)});
-            Entity entity4 = new Entity(4, new List<Component> { new Position(0, 0), new Renderable('K', Colors.KoboldColor), new Collidable(), new Health(10) });
-            List<Entity> testEntities = new List<Entity> {entity1 };
-            GameMap map = MapGenerators.BasicRooms( _mapWidth * 2, _mapHeight * 2, 40, 13, 7, Random);
+            Entity entity4 = new Entity(2, new List<Component> { new Position(0, 0),
+                new Renderable('K', Colors.KoboldColor), new Collidable(),
+                new Health(10), new BaseStats(10, 10, 100),
+                new Sentient(new BeingConfused()), new Schedulable() });
+            List<Entity> testEntities = new List<Entity> {entity1, entity2, entity4 };
+            GameMap map = MapGenerators.BasicRooms( _mapWidth, _mapHeight, 40, 13, 7, Random);
             _mapConsole.TextSurface = new SadConsole.Surfaces.BasicSurface(map.GetWidth(), map.GetHeight());
             _mapConsole.TextSurface.RenderArea = new Rectangle(0, 0, _mapWidth, _mapHeight);
             
@@ -132,29 +113,11 @@ namespace ECSRogue
             UpdatePlayerFov.Execute(_context);
             UpdateView.Execute(_mapConsole, _context);
             RenderMap.Execute(_mapConsole, _context);
-            RenderEntities.Act(_mapConsole, _context);
+            RenderEntities.Execute(_mapConsole, _context);
         }
 
         private static void Update(GameTime delta)
         {
-
-            //_mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, RLColor.Black);
-            // _mapConsole.Print(1, 1, "Map", RLColor.White);
-
-            //_statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Color.Brown);
-            //_statConsole.Print(1, 1, "Stats", Color.White);
-
-            //_inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Color.Cyan);
-            //_inventoryConsole.Print(1, 1, "Inventory", Color.White);
-
-
-            //if (MovePlayer.Act(_rootConsole.Keyboard, _context))
-            //{
-            //    CountSteps.Increment();
-            //    MessageLog.Add($"Step # {CountSteps.Get()}");
-            //}
-            // MovePlayer.Act( _context);
-            //if (SadConsole.Global.KeyboardState.KeysPressed.
             if ((currentPlayerCommand = HandleInput.Execute(_commands)) != null)
             {
                 ResetTimeUnits.Execute(_context);
@@ -162,30 +125,11 @@ namespace ECSRogue
                 UpdatePlayerFov.Execute(_context);
                 UpdateView.Execute(_mapConsole, _context);
                 RenderMap.Execute(_mapConsole, _context);
-                RenderEntities.Act(_mapConsole, _context);   
+                RenderEntities.Execute(_mapConsole, _context);   
             }
 
-            
-            //_mapConsole.SetGlyph(tempX, tempY, '$', Color.Azure);
-
-
         }
-        //      private static void OnRootConsoleRender(object sender, UpdateEventArgs e)
-        //   {
-        //         RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight,
-        //_rootConsole, 0, _inventoryHeight);
-        //         RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight,
-        //           _rootConsole, _mapWidth, 0);
-        //         RLConsole.Blit(_messageConsole, 0, 0, _messageWidth, _messageHeight,
-        //           _rootConsole, 0, _screenHeight - _messageHeight);
-        //         RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight,
-        //           _rootConsole, 0, 0);
-
-        //MessageLog.Draw(_messageConsole);
-        //_rootConsole.Draw();
-        //     }
-
-
+       
     }
 
 

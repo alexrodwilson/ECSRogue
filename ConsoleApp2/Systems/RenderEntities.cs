@@ -11,7 +11,7 @@ namespace ConsoleApp2.Systems
 {
     internal static class RenderEntities
     {
-        internal static void Act(SadConsole.Console console,  IContext context)
+        internal static void Execute(SadConsole.Console console,  IContext context)
         {
             GameMap map = context.GetCurrentMap();
             foreach (Entity e in context.With("Renderable"))

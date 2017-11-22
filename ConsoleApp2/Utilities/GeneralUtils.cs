@@ -26,7 +26,7 @@ namespace ConsoleApp2.Utilities
             return commands;
         }
 
-        private static Action<Entity, IContext> MakeMovementAction(int xmov, int ymov)
+        public static Action<Entity, IContext> MakeMovementAction(int xmov, int ymov)
         {
             return (Entity e, IContext context) =>
             {

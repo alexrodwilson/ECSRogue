@@ -59,9 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviours\BasicEnemy.cs" />
+    <Compile Include="Behaviours\BeingConfused.cs" />
     <Compile Include="Behaviours\IBehaviour.cs" />
     <Compile Include="Components\BaseStats.cs" />
-    <Compile Include="Components\Behaviour.cs" />
+    <Compile Include="Components\Sentient.cs" />
     <Compile Include="Components\FollowedByCamera.cs" />
     <Compile Include="Components\Health.cs" />
     <Compile Include="Components\Collidable.cs" />
