@@ -13,13 +13,13 @@ namespace ConsoleApp2.Components
         
         internal Position(int _x, int _y)
         {
-            x = _x;
-            y = _y;
+            X = _x;
+            Y = _y;
             NewlyCreated = true;
         }
-        public int x
+        public int X
         { get; set; }
-        public int y
+        public int Y
         { get; set; }
         internal bool NewlyCreated
         { get; set; }

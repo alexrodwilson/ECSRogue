@@ -84,11 +84,11 @@
     <Compile Include="Game.cs" />
     <Compile Include="Map Generators\BasicMapGenerators.cs" />
     <Compile Include="EntityPlacement\IEntityPlacer.cs" />
-    <Compile Include="EntityPlacement\MapUtils.cs" />
     <Compile Include="EntityPlacement\TestPlacer.cs" />
     <Compile Include="program-example.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\CountSte%3bps.cs" />
+    <Compile Include="Systems\DebugInfo.cs" />
     <Compile Include="Systems\HandleInput.cs" />
     <Compile Include="Systems\PerformAction.cs" />
     <Compile Include="Systems\PlayTurn.cs" />
@@ -99,6 +99,7 @@
     <Compile Include="Systems\RenderEntities.cs" />
     <Compile Include="Systems\RenderMap.cs" />
     <Compile Include="Systems\UpdateView.cs" />
+    <Compile Include="Utilities\MapUtils.cs" />
     <Compile Include="Utilities\GeneralUtils.cs" />
     <Compile Include="Utilities\SortedQueue.cs" />
     <Compile Include="Utilities\Test.cs" />

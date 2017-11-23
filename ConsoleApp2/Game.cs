@@ -23,7 +23,7 @@ namespace ECSRogue
         private static readonly int _screenWidth = 100;
         private static readonly int _screenHeight = 70;
         private static readonly int _mapWidth = 80;
-        private static readonly int _mapHeight = 48;
+        private static readonly int _mapHeight = 25;
         private static readonly int _messageWidth = 80;
         private static readonly int _messageHeight = 11;
         private static readonly int _statWidth = 20;
@@ -38,6 +38,7 @@ namespace ECSRogue
         //private static RLConsole _statConsole;
         //private static RLConsole _inventoryConsole;
         private static Console _rootConsole;
+        private static Console _debugConsole;
         private static Console _mapConsole;
         private static Command currentPlayerCommand;
         private static IEnumerable<Command> _commands;
@@ -80,12 +81,15 @@ namespace ECSRogue
         {
  
             _mapConsole = new Console(_mapWidth, _mapHeight);
-            _mapConsole.TextSurface = new SadConsole.Surfaces.BasicSurface(_mapWidth, _mapHeight);
+            _debugConsole = new Console(_mapConsole.Width, _mapConsole.Height);
+            _debugConsole.TextSurface.DefaultBackground = Color.Transparent;
+           // _mapConsole.TextSurface = new SadConsole.Surfaces.BasicSurface(_mapWidth, _mapHeight);
             _commands = GeneralUtils.ProvideBasicCommands();
 
-           
+
 
             // Set our new console as the "thing" to render and process
+            _debugConsole.Parent = _mapConsole;
             SadConsole.Global.CurrentScreen = _mapConsole;
             
             Entity entity1 = new Entity(1, new List<Component>{ new Position(10, 10), new Renderable('@', Colors.Player),
@@ -101,7 +105,7 @@ namespace ECSRogue
                 new Health(10), new BaseStats(10, 10, 100),
                 new Sentient(new BeingConfused()), new Schedulable() });
             List<Entity> testEntities = new List<Entity> {entity1, entity2, entity4 };
-            GameMap map = MapGenerators.BasicRooms( _mapWidth, _mapHeight, 40, 13, 7, Random);
+            GameMap map = MapGenerators.BasicRooms( _mapWidth * 2, _mapHeight * 2, 40, 13, 7, Random);
             _mapConsole.TextSurface = new SadConsole.Surfaces.BasicSurface(map.GetWidth(), map.GetHeight());
             _mapConsole.TextSurface.RenderArea = new Rectangle(0, 0, _mapWidth, _mapHeight);
             
@@ -118,6 +122,7 @@ namespace ECSRogue
 
         private static void Update(GameTime delta)
         {
+            DebugInfo.Execute(_mapConsole, _debugConsole, _context);
             if ((currentPlayerCommand = HandleInput.Execute(_commands)) != null)
             {
                 ResetTimeUnits.Execute(_context);

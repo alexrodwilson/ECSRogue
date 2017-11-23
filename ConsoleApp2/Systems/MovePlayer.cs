@@ -22,8 +22,8 @@ namespace ConsoleApp2.Systems
             foreach (Entity e in entities)
             {
                 Position pos = (Position)e.GetComponent("Position");
-                int currentX = pos.x;
-                int currentY = pos.y;
+                int currentX = pos.X;
+                int currentY = pos.Y;
                 GameMap map = context.GetCurrentMap();
 
                 if (SadConsole.Global.KeyboardState.IsKeyPressed(Keys.NumPad8)) currentY -= 1;

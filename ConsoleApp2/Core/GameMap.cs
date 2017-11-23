@@ -90,9 +90,9 @@ namespace ConsoleApp2.Components
         public void PlaceEntity(Entity e, Cell newCell)
         {
             Position pos = (Position)e.GetComponent("Position");
-            Cell formerCell = GetCell(pos.x, pos.y);
-            pos.x = newCell.X;
-            pos.y = newCell.Y;
+            Cell formerCell = GetCell(pos.X, pos.Y);
+            pos.X = newCell.X;
+            pos.Y = newCell.Y;
             if (pos.NewlyCreated)
             {
                 pos.NewlyCreated = false;
@@ -108,7 +108,7 @@ namespace ConsoleApp2.Components
 
             if (e.HasComponent("Collidable"))
             {
-                SetIsWalkable(pos.x, pos.y, false);
+                SetIsWalkable(pos.X, pos.Y, false);
             }
 
         }

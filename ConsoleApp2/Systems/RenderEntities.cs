@@ -18,8 +18,8 @@ namespace ConsoleApp2.Systems
             {
                 Renderable renderable = (Renderable)e.GetComponent("Renderable");
                 Position pos = (Position)e.GetComponent("Position");
-                int x = pos.x;
-                int y = pos.y;
+                int x = pos.X;
+                int y = pos.Y;
                 //int adjustedX = x - (view.playerX - view.xOffset);
                 //int adjustedY = y - (view.playerY - view.yOffset);
                 Color color = renderable.color;

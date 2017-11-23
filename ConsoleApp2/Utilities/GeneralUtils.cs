@@ -31,8 +31,8 @@ namespace ConsoleApp2.Utilities
             return (Entity e, IContext context) =>
             {
                 Position pos = (Position)e.GetComponent("Position");
-                int newX = pos.x + xmov;
-                int newY = pos.y + ymov;
+                int newX = pos.X + xmov;
+                int newY = pos.Y + ymov;
                 GameMap map = context.GetCurrentMap();
                 if (map.GetCell(newX, newY).IsWalkable
                    || (!e.HasComponent("Collidable")))

@@ -23,14 +23,14 @@ namespace ConsoleApp2.Systems
             {
                 Entity e = (Entity)controlledEntities.First();
                 Position firstPos = (Position) e.GetComponent("Position");
-                context.GetCurrentMap().ComputeFov(firstPos.x, firstPos.y, light_radius, true);
+                context.GetCurrentMap().ComputeFov(firstPos.X, firstPos.Y, light_radius, true);
             }
         
             
             foreach (Entity e in controlledEntities)
             {
                 Position pos = (Position)e.GetComponent("Position");
-                context.GetCurrentMap().AppendFov(pos.x, pos.y, light_radius, true);
+                context.GetCurrentMap().AppendFov(pos.X, pos.Y, light_radius, true);
             }
             // Compute the field-of-view based on the player's location and awareness
            
